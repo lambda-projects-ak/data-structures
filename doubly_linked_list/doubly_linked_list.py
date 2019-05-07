@@ -59,22 +59,70 @@ class DoublyLinkedList:
             self.head = new_node
             self.tail = new_node
             self.length += 1
+            return new_node.value
 
         # ll has more than one node
         else:
             self.head.insert_before(value)
-            self.head.prev = None
+            self.head = self.head.prev
             self.length += 1
+            return new_node.value
 
     def remove_from_head(self):
-        # if ll has head, update head to none, update new head prev to none
-        pass
+        # ll has no nodes
+        if not self.head and not self.tail:
+            return None
+
+        # ll has one node
+        if self.head == self.tail:
+            removed = self.head.value
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            return removed
+
+        # ll has head, update head to none, update new head prev to none
+        else:
+            removed = self.head.value
+            self.head = self.head.next
+            self.head.prev = None
+            self.length -= 1
+            return removed
 
     def add_to_tail(self, value):
-        pass
+        new_node = ListNode(value)
+
+        # ll is empty - assign new node to both head and tail
+        if not self.head and not self.tail:
+            self.head = new_node
+            self.tail = new_node
+            self.length += 1
+            return new_node.value
+
+        # ll has more than one node
+        else:
+            self.tail.insert_after(value)
+            self.tail = self.tail.next
+            self.length += 1
+            return new_node.value
 
     def remove_from_tail(self):
-        pass
+        # ll has no nodes
+        if not self.head and not self.tail:
+            return None
+        # ll has one node
+        if self.head == self.tail:
+            removed = self.tail.value
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            return removed
+        else:
+            removed = self.tail.value
+            self.tail = self.tail.prev
+            self.tail.next = None
+            self.length -= 1
+            return removed
 
     def move_to_front(self, node):
         pass
@@ -88,15 +136,6 @@ class DoublyLinkedList:
     def get_max(self):
         pass
 
-    def display(self):
-        display = []
-        current_node = self.head
-
-        while current_node.next != None:
-            current_node = current_node.next
-            display.append(current_node.value)
-        return display
-
 
 ll = DoublyLinkedList()
 
@@ -104,12 +143,3 @@ another_node = ListNode(4)  # None, 4, None
 # print(new_node.prev)
 
 ll.add_to_head(4)
-print("previous:", ll.head.prev, "value:",
-      ll.head.value, "next:", ll.head.next)
-print("tail", ll.tail.prev, ll.tail.value, ll.tail.next)
-
-ll.add_to_head(6)
-print("head", ll.head.prev, ll.head.value, ll.head.next)
-print("tail", ll.tail.prev, ll.tail.value, ll.tail.next)
-
-print(ll.display())
