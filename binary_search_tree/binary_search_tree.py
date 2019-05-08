@@ -9,17 +9,17 @@ class BinarySearchTree:
         self.right = None
 
     def insert(self, value):
-        # create new node if conditions are met
-        if value <= self.value and not self.left:
-            self.left = BinarySearchTree(value)
-        elif value >= self.value and not self.right:
-            self.right = BinarySearchTree(value)
+        if value < self.value:
+            if not self.left:
+                self.left = BinarySearchTree(value)
+            else:
+                self.left.insert(value)
 
-        # recursive logic
-        elif value <= self.value:
-            self.left.insert(value)
-        elif value >= self.value:
-            self.right.insert(value)
+        elif value > self.value:
+            if not self.right:
+                self.right = BinarySearchTree(value)
+            else:
+                self.right.insert(value)
 
     def contains(self, target):
         if target == self.value:
@@ -32,16 +32,13 @@ class BinarySearchTree:
             return False
 
     def get_max(self):
-        # current_node = self
-        # max_value = 0
-
-        # while max_value < current_node.value:
-        #     current_node = current_node.right
-        #     if max_value < current_node.value:
-        #         max_value = current_node.value
-
-        # return max_value
-        pass
+        # if the current node has no right child, return the value
+        if not self.right:
+            return self.value
+        # if there is a right node, it will be greater than current node
+        # call get max again to set next node as current max
+        else:
+            return self.right.get_max()
 
     def for_each(self, cb):
         pass
