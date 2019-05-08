@@ -3,21 +3,26 @@ class Heap:
         self.storage = []
 
     def insert(self, value):
-        pass
+        last_element = len(self.storage) - 1
+        # insert incoming value at end of array
+        self.storage.append(value)
+        self._bubble_up(last_element)
 
     def delete(self):
-        # remove priority element
-        # last element in array swaps with new open space
+        last_element = len(self.storage) - 1
+        # last element in array swaps with first element in array
+        self.storage[0], self.storage[last_element] = self.storage[last_element], self.storage[0]
+        # remove priority element (now last element)
+        self.storage.pop(last_element)
         # now soft down new priority element
+        self._sift_down(0)
         pass
 
     def get_max(self):
-        # get priority element and return it O(1)
-        pass
+        return self.storage[0]
 
     def get_size(self):
-        # len(arr)?
-        pass
+        return len(self.storage)
 
     # index parameter is the index of the node whereever it is in the array
     def _bubble_up(self, index):
@@ -48,5 +53,4 @@ bubble up will be used by insert to move the element to it's proper spot
 
 delete will delete the main root and moves a leaf to the main node
 sift down will move the element down to it's proper spot
-
 '''
