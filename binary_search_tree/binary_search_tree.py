@@ -59,3 +59,26 @@ class BinarySearchTree:
 
         if self.right:
             self.right.for_each(cb)
+
+
+# O(2n 2log(n)) -> O(n log(n)) 8 points
+
+# loop over first list O(n)
+    # .insert(i) into binary search tree O(log (n))
+
+# loop over second list O(n)
+    # .contains(j)  O(log (n))
+
+
+# O(n) 10 points
+# loop over names file to create an array O(n)
+    # append each name to an array O(1)
+
+# loop over second list of names
+# while y < length of first array (n)
+    # y = 0 (n)
+    # compare each name to arr[y] O(1)
+    # append matching name to new array O(1)
+    # then increment y += 1 O(1)
+
+# return matching names array

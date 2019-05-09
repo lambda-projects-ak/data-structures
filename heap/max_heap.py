@@ -10,9 +10,8 @@ class Heap:
 
     def delete(self):
         deleted = self.storage[0]
-        # last element in array swaps with first element in array
-        self.storage[0], self.storage[-1] = self.storage[-1], self.storage[0]
-        # remove priority element (now last element)
+        self.storage[0] = self.storage[-1]
+        # remove last element
         self.storage.pop()
         # now soft down new priority element
         self._sift_down(0)
@@ -45,7 +44,7 @@ class Heap:
         left = 2 * index + 1
         right = 2 * index + 2
 
-        if left < len(self.storage) - 1 or right < len(self.storage) - 1:
+        if left < len(self.storage) - 1:
             # compare left and right, move forward with lesser value
             if self.storage[right] > self.storage[left]:
                 if self.storage[right] > self.storage[index]:
@@ -59,7 +58,7 @@ class Heap:
                     self.storage[index], self.storage[left] = self.storage[left], self.storage[index]
                     self._sift_down(left)
 
-        # if left < len(self.storage) - 1 or right < len(self.storage) - 1:
+        # if left < len(self.storage) - 1 or right < len(self.storage):
         #     # compare left and right, move forward with lesser value
         #     if self.storage[left] > self.storage[right]:
         #         if self.storage[left] > self.storage[index]:
@@ -72,6 +71,11 @@ class Heap:
         #             # swap index with right index
         #             self.storage[index], self.storage[right] = self.storage[right], self.storage[index]
         #             self._sift_down(right)
+        # #
+        # elif self.storage[left] > self.storage[index]:
+        #         # swap index with left index value
+        #         self.storage[index], self.storage[left] = self.storage[left], self.storage[index]
+        #         self._sift_down(left)
 
 
 '''
