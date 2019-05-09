@@ -9,14 +9,14 @@ class Heap:
         self._bubble_up(last_element)
 
     def delete(self):
-        last_element = len(self.storage) - 1
+        deleted = self.storage[0]
         # last element in array swaps with first element in array
-        self.storage[0], self.storage[last_element] = self.storage[last_element], self.storage[0]
+        self.storage[0], self.storage[-1] = self.storage[-1], self.storage[0]
         # remove priority element (now last element)
-        self.storage.pop(last_element)
+        self.storage.pop()
         # now soft down new priority element
         self._sift_down(0)
-        pass
+        return deleted
 
     def get_max(self):
         return self.storage[0]
@@ -42,9 +42,36 @@ class Heap:
                 break
 
     def _sift_down(self, index):
-        # left = 2 * index + 1
-        # right = 2 * index + 2
-        pass
+        left = 2 * index + 1
+        right = 2 * index + 2
+
+        if left < len(self.storage) - 1 or right < len(self.storage) - 1:
+            # compare left and right, move forward with lesser value
+            if self.storage[right] > self.storage[left]:
+                if self.storage[right] > self.storage[index]:
+                    # swap index with right index
+                    self.storage[index], self.storage[right] = self.storage[right], self.storage[index]
+                    self._sift_down(right)
+
+            else:
+                if self.storage[left] > self.storage[index]:
+                    # swap index with left index value
+                    self.storage[index], self.storage[left] = self.storage[left], self.storage[index]
+                    self._sift_down(left)
+
+        # if left < len(self.storage) - 1 or right < len(self.storage) - 1:
+        #     # compare left and right, move forward with lesser value
+        #     if self.storage[left] > self.storage[right]:
+        #         if self.storage[left] > self.storage[index]:
+        #             # swap index with left index value
+        #             self.storage[index], self.storage[left] = self.storage[left], self.storage[index]
+        #             self._sift_down(left)
+
+        #     else:
+        #         if self.storage[right] > self.storage[index]:
+        #             # swap index with right index
+        #             self.storage[index], self.storage[right] = self.storage[right], self.storage[index]
+        #             self._sift_down(right)
 
 
 '''
